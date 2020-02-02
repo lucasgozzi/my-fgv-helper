@@ -12,7 +12,7 @@ module.exports = class FgvCrawler {
     }
 
     async start() {
-        this.browser = await puppeteer.launch({ headless: true });
+        this.browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
         this.page = await this.browser.newPage();
         await this.page.goto('http://smartcps.ibe.edu.br/smart/');
         return this;
