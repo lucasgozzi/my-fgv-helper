@@ -53,6 +53,7 @@ routes.get('/update-calendar', async (req, res) => {
             student.save()
             return res.json({ status: true });
         } catch (e) {
+            console.log(e);
             return res.status(500).json({ status: false });
         }
     } else {
