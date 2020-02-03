@@ -39,6 +39,19 @@ routes.post('/logout', async (req, res) => {
     return res.json({ status: true });
 });
 
+// checar se o servidor teve que ser reiniciado e por isso teremos 
+// que relogar na ferramenta para prover o password novamente 
+routes.post('/is-logged-in', async (req, res) => {
+    if (req.headers['token']) {
+        if (mySession[req.headers['token']]) {
+            return res.json({ status: true });
+        } else {
+            return res.json({ status: false });
+        }
+    }
+    return res.sendStatus(401);
+});
+
 routes.get('/update-calendar', async (req, res) => {
     if (req.headers['token']) {
         const { user, password } = mySession[req.headers['token']];
