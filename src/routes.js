@@ -39,7 +39,7 @@ routes.post('/logout', async (req, res) => {
     return res.json({ status: true });
 });
 
-routes.post('teste', (req, res) => {
+routes.post('/teste', (req, res) => {
     return res.json(mySession);
 })
 
