@@ -53,9 +53,11 @@ routes.post('/is-logged-in', async (req, res) => {
 });
 
 routes.get('/update-calendar', async (req, res) => {
+    console.log('start');
     if (req.headers['token']) {
         const { user, password } = mySession[req.headers['token']];
         const student = await Student.findById(req.headers['token']);
+        console.log('get student:', student);
         let crawlerSession = await new FgvCrawler();
         try {
             const classes = await crawlerSession.getSchedule(user, password);

@@ -39,6 +39,7 @@ module.exports = class FgvCrawler {
     async getSchedule(user, password) {
         await this.start();
 
+        console.log('find login');
         await this.findLoginInput();
         await this.page.keyboard.type(user);
 
@@ -57,6 +58,7 @@ module.exports = class FgvCrawler {
         await this.page.keyboard.press('Enter', {
             delay: 2000
         });
+        console.log('finished logging');
         await this.page.goto('http://smartcps.ibe.edu.br/smart/Aluno/cronograma/cronograma.asp?IdMenu=62')
 
         const arr = await this.page.evaluate(_ => {
@@ -83,6 +85,7 @@ module.exports = class FgvCrawler {
 
             return responseObj;
         });
+        console.log('finished crawling', arr.classes.length);
 
         await this.destroy();
 
