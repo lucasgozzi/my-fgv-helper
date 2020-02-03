@@ -73,8 +73,9 @@ module.exports = class FgvCrawler {
                 try {
                     obj.date = tr.children[0].innerHTML;
                     obj.dayOfWeek = tr.children[1].innerHTML;
-                    obj.class = tr.children[2].innerHTML;
-                    obj.type = tr.children[3].innerHTML;
+                    obj.hour = tr.children[2].innerHTML;
+                    obj.class = tr.children[3].innerHTML;
+                    obj.type = tr.children[4].innerHTML;
                     responseObj.classes.push(obj);
                 } catch (e) {
                 }
