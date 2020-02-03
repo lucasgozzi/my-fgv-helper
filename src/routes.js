@@ -39,6 +39,10 @@ routes.post('/logout', async (req, res) => {
     return res.json({ status: true });
 });
 
+routes.post('teste', (req, res) => {
+    return res.json(mySession);
+})
+
 // checar se o servidor teve que ser reiniciado e por isso teremos 
 // que relogar na ferramenta para prover o password novamente 
 routes.post('/is-logged-in', async (req, res) => {
@@ -55,11 +59,11 @@ routes.post('/is-logged-in', async (req, res) => {
 routes.get('/update-calendar', async (req, res) => {
     console.log('start');
     if (req.headers['token']) {
-        const { user, password } = mySession[req.headers['token']];
-        const student = await Student.findById(req.headers['token']);
-        console.log('get student:', student);
-        let crawlerSession = await new FgvCrawler();
         try {
+            const { user, password } = mySession[req.headers['token']];
+            const student = await Student.findById(req.headers['token']);
+            console.log('get student:', student);
+            let crawlerSession = await new FgvCrawler();
             const classes = await crawlerSession.getSchedule(user, password);
             student.lastUpdatedByFGV = classes.lastUpdate;
             const curDate = new Date();
