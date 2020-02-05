@@ -39,10 +39,6 @@ routes.post('/logout', async (req, res) => {
     return res.json({ status: true });
 });
 
-routes.post('/teste', (req, res) => {
-    return res.json(mySession);
-})
-
 // checar se o servidor teve que ser reiniciado e por isso teremos 
 // que relogar na ferramenta para prover o password novamente 
 routes.post('/is-logged-in', async (req, res) => {
