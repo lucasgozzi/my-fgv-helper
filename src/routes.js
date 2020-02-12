@@ -89,6 +89,24 @@ routes.get('/update-calendar', async (req, res) => {
 routes.get('/get-classes', async (req, res) => {
     if (req.headers['token']) {
         const student = await Student.findById(req.headers['token']);
+        if (student.schedule) {
+            var afterSchedule = student.schedule.filter(c => {
+                const [day, month, year] = c.date.split('/');
+                const curDate = new Date();
+                const strDate = `${curDate.getFullYear().toString().padStart(4, '0')}${(curDate.getMonth() + 1).toString().padStart(2, '0')}${(curDate.getDate()).toString().padStart(2, '0')}`
+                const otherDate = `${year.padStart(4, '0')}${month.padStart(2, '0')}${day.padStart(2, '0')}`;
+                return strDate <= otherDate
+            });
+            var oldSchedule = student.schedule.filter(c => {
+                const [day, month, year] = c.date.split('/');
+                const curDate = new Date();
+                const strDate = `${curDate.getFullYear().toString().padStart(4, '0')}${(curDate.getMonth() + 1).toString().padStart(2, '0')}${(curDate.getDate()).toString().padStart(2, '0')}`
+                const otherDate = `${year.padStart(4, '0')}${month.padStart(2, '0')}${day.padStart(2, '0')}`;
+                console.log(c.date, strDate, otherDate);
+                return strDate > otherDate
+            });
+            student.schedule = afterSchedule.concat(oldSchedule);
+        }
         res.json(student);
     } else {
         return res.sendStatus(401);
